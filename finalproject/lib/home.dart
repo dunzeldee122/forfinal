@@ -1,11 +1,17 @@
+// home.dart
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'login.dart'; // Import the login page
 import 'petreg.dart'; // Import the pet registration page
+import 'package:mssql_connection/mssql_connection.dart'; // Import the MSSQL connection package
 
 class HomePage extends StatefulWidget {
+  final MssqlConnection mssqlConnection;
+
+  const HomePage({Key? key, required this.mssqlConnection}) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -14,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   File? _selectedImage;
 
   Future<void> _getImageFromGallery() async {
-    final pickedFile = await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -47,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               child: Text('Yes'),
               onPressed: () {
                 // Navigate back to the login screen
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage(mssqlConnection: widget.mssqlConnection))); // Pass mssqlConnection here
               },
             ),
           ],

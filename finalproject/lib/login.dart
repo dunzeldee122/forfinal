@@ -1,8 +1,14 @@
+// login.dart
 import 'package:flutter/material.dart';
 import 'register.dart';
-import 'home.dart';
+import 'home.dart'; // Import the HomePage
+import 'package:mssql_connection/mssql_connection.dart'; // Import the MSSQL connection package
 
 class LoginPage extends StatelessWidget {
+  final MssqlConnection mssqlConnection;
+
+  const LoginPage({Key? key, required this.mssqlConnection}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +37,7 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => HomePage(mssqlConnection: mssqlConnection)), // Pass mssqlConnection here
                   );
                 },
                 child: Text('Log In'),
@@ -42,7 +48,7 @@ class LoginPage extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()),
+                    MaterialPageRoute(builder: (context) => RegisterPage(mssqlConnection: mssqlConnection)),
                   );
                 },
                 child: RichText(
