@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'login.dart'; // Import the login page
+import 'petreg.dart'; // Import the pet registration page
 
 class HomePage extends StatefulWidget {
   @override
@@ -83,6 +84,13 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Change Profile Picture'),
               onTap: _getImageFromGallery,
+            ),
+            // Button to list your pet
+            ListTile(
+              title: Text('List Your Pet'),
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PetRegistrationPage()));
+              },
             ),
             // Logout button
             Expanded( // Use Expanded to push the logout button to the bottom
